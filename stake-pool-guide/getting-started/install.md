@@ -100,10 +100,10 @@ cabal --version
 ### Download and install GHC:
 
 ```
-wget https://downloads.haskell.org/~ghc/8.6.5/ghc-8.6.5-x86_64-deb9-linux.tar.xz
-tar -xf ghc-8.6.5-x86_64-deb9-linux.tar.xz
-rm ghc-8.6.5-x86_64-deb9-linux.tar.xz
-cd ghc-8.6.5
+wget https://downloads.haskell.org/~ghc/8.10.2/ghc-8.10.2-x86_64-deb9-linux.tar.xz
+tar -xf ghc-8.10.2-x86_64-deb9-linux.tar.xz
+rm ghc-8.10.2-x86_64-deb9-linux.tar.xz
+cd ghc-8.10.2
 ./configure
 sudo make install
 cd ..
@@ -150,7 +150,7 @@ For reproducible builds, we should check out a specific release, a specific "tag
 ```
 git fetch --all --tags
 git tag
-git checkout tags/1.18.0
+git checkout tags/1.24.2
 ```
 
 ### Build and install the node
@@ -164,11 +164,11 @@ cabal build all
 Now we can copy the executables files to the .local/bin directory
 
 ```
-cp -p dist-newstyle/build/x86_64-linux/ghc-8.6.5/cardano-node-1.18.0/x/cardano-node/build/cardano-node/cardano-node ~/.local/bin/
+cp -p dist-newstyle/build/x86_64-linux/ghc-8.10.2/cardano-node-1.24.2/x/cardano-node/build/cardano-node/cardano-node ~/.local/bin/
 ```
 
 ```
-cp -p dist-newstyle/build/x86_64-linux/ghc-8.6.5/cardano-cli-1.18.0/x/cardano-cli/build/cardano-cli/cardano-cli ~/.local/bin/
+cp -p dist-newstyle/build/x86_64-linux/ghc-8.10.2/cardano-cli-1.24.2/x/cardano-cli/build/cardano-cli/cardano-cli ~/.local/bin/
 ```
 
 ```
