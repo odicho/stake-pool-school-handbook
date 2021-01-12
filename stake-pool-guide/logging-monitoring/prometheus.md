@@ -8,7 +8,7 @@
 
 Click "Edit inbound rules".
 
-![](../../.gitbook/assets/edit-inbound-rules.png)
+![](../../.gitbook/assets/edit-inbound-rules%20%281%29%20%281%29.png)
 
 Then add a new rule for "Custom TCP", port range 12789, source "Anywhere".
 

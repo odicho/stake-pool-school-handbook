@@ -6,7 +6,7 @@ If you do not have access to a computer running Linux \(or VirtualBox\), you can
 * Go to the _AWS Management Console_.
 * Go to the _EC2 Dashboard_.
 
-![](../../.gitbook/assets/ami.png)
+![](../../.gitbook/assets/AMI.png)
 
 * If you already have a running instance, go to step 9.
 * We must first make sure to get enough harddrive space \(at least 24GB\). Click on _Volumes_.
@@ -31,11 +31,11 @@ If you do not have access to a computer running Linux \(or VirtualBox\), you can
 
 * As Amazon Machine Image, choose _Amazon Linux 2 \(HVM\), SSD Volume Type_, 64-bit \(x86\).
 
-![](../../.gitbook/assets/ami.png)
+![](../../.gitbook/assets/AMI.png)
 
 * As Instance Type, choose _t2.medium_, then click _Review and Launch_ and finally _Launch_ on the next screen.
 
-![](../../.gitbook/assets/instance_type.png)
+![](../../.gitbook/assets/Instance_Type.png)
 
 * Create a key pair \(or use an existing one\).
 
