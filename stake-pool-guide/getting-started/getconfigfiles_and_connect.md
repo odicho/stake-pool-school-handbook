@@ -25,7 +25,7 @@ mkdir relay
 cd relay
 ```
 
-Or with the command line using:
+Now download the latest testnet configuration files:
 
 ```text
 wget https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/testnet-config.json
