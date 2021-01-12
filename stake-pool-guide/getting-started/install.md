@@ -182,7 +182,23 @@ cd cardano-node
 git fetch --all --tags
 git tag
 git checkout tags/<the-tag-you-want>
-cabal install cardano-node cardano-cli
+cabal build all
+```
+
+**Note:** This is a good time to backup your existing binaries (in case you need to revert to a previous version). Something like this:
+
+```
+cd ~/.local/bin
+mv cardano-cli cardano-cli-backup
+mv cardano-node cardano-node-backup
+```
+
+Now copy your newly created binaries to the relevant directory:
+
+```
+cp -p dist-newstyle/build/x86_64-linux/ghc-8.10.2/cardano-node-<version-you-just-built>/x/cardano-node/build/cardano-node/cardano-node ~/.local/bin/
+
+cp -p dist-newstyle/build/x86_64-linux/ghc-8.10.2/cardano-cli-<version-you-just-built>/x/cardano-cli/build/cardano-cli/cardano-cli ~/.local/bin/
 ```
 
 **Note:** It might be necessary to delete the `db`-folder \(the database-folder\) before running an updated version of the node.
