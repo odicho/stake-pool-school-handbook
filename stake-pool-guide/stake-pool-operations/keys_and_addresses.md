@@ -17,7 +17,7 @@ Let's produce our cryptographic keys first, as we will need them to later create
 Generate a _payment key pair_:
 
 ```text
- cardano-cli shelley address key-gen \
+ cardano-cli address key-gen \
  --verification-key-file payment.vkey \
  --signing-key-file payment.skey
 ```
@@ -42,7 +42,7 @@ The first line describes the file type and should not be changed. The second lin
 We then use `payment.vkey` and `stake.vkey` to create our `payment address`:
 
 ```text
- cardano-cli shelley address build \
+ cardano-cli address build \
  --payment-verification-key-file payment.vkey \
  --out-file payment.addr \
  --testnet-magic 1097911063
@@ -52,7 +52,7 @@ This created the file payment.addr that is already associated with our stake key
 
 ```text
 cat payment.addr
-> 00ec78e3d3916636101f6d9539c451f248ba200f38f2c33129f7ef36d66853603e872296956a4d86
+> addr_test1vrxfh9larxm7uhwfks4danzgffhsjkwwtxam6ad8sy7566sp0r7fj
 ```
 
 To query your address \(see the utxo's at that address\), you first need to set environment variable `CARDANO_NODE_SOCKET_PATH` to the socket-path specified in your node configuration. In this example we will use the relay node created in the previous steps:
@@ -64,7 +64,8 @@ export CARDANO_NODE_SOCKET_PATH=~/relay/db/node.socket
 make sure that your node is running. Then use `cardano-cli shelley query utxo` to find out the address' balance:
 
 ```text
-cardano-cli shelley query utxo \
+cardano-cli query utxo \
+--allegra-era \
 --address $(cat payment.addr) \
 --testnet-magic 1097911063
 ```
