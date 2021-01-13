@@ -3,7 +3,7 @@
 You will need a new **payment address** \(payment2.addr\) so that you can send funds to it. First, get a new payment key pair for that:
 
 ```text
-cardano-cli shelley address key-gen \
+cardano-cli address key-gen \
 --verification-key-file payment2.vkey \
 --signing-key-file payment2.skey
 ```
@@ -13,13 +13,13 @@ This has created two new keys: **payment2.vkey** and **payment2.skey**
 To generate **payment2.addr** we can use the same stake key pair that we already have:
 
 ```text
-cardano-cli shelley address build \
+cardano-cli address build \
 --payment-verification-key-file payment2.vkey \
 --out-file payment2.addr \
 --testnet-magic 1097911063
 ```
 
-Let's send 100 ada from `payment.addr` to `payment2.addr`
+Let's send 100 ada (100,000,000 lovelace) from `payment.addr` to `payment2.addr`
 
 Creating a transaction is a process that requires various steps:
 
@@ -35,17 +35,18 @@ Creating a transaction is a process that requires various steps:
 Get the protocol parameters and save them to `protocol.json` with:
 
 ```text
-   cardano-cli shelley query protocol-parameters \
+   cardano-cli query protocol-parameters \
+   --allegra-era \
    --testnet-magic 1097911063 \
    --out-file protocol.json
 ```
 
 ## Determine the TTL \(Time To Live\) for the transaction
 
-We need the CURRENT TIP of the blockchain, this is, the height of the last block produced. We are looking for the value of `unSlotNo`
+We need the CURRENT TIP of the blockchain, this is, the height of the last block produced. We are looking for the value of `SlotNo`
 
 ```text
-cardano-cli shelley query tip --testnet-magic 1097911063
+cardano-cli query tip --testnet-magic 1097911063
 
 {
     "blockNo": 16829,
@@ -54,21 +55,36 @@ cardano-cli shelley query tip --testnet-magic 1097911063
 }
 ```
 
-So at this moment the tip is on block 795346.
+So at this moment the tip is on block: 369215
+.
 
 To build the transaction we need to specify the **TTL \(Time To Live\)**, this is the block height limit for our transaction to be included in a block, if it is not in a block by that slot the transaction will be cancelled.
 
-From `protocol.json` we know that we have 1 slot per second. Lets say that it will take us 10 minutes to build the transaction, and that we want to give it another 10 minutes window to be included in a block. So we need 20 minutes or 1200 slots. So we add 1200 to the current tip: 795346 + 1200 = 796546. So our TTL is 796546
+From `protocol.json` we know that we have 1 slot per second. Lets say that it will take us 10 minutes to build the transaction, and that we want to give it another 10 minutes window to be included in a block. So we need 20 minutes or 1200 slots. So we add 1200 to the current tip: 369215 + 1200 = 370415. So our TTL is 370415
 
 ## Draft the transaction
-
 We create a draft for the transaction and save it in tx.raw
 
-Note that for `--tx-in` we use the following syntax: `TxId#TxIx` where `TxId` is the transaction hash and `TxIx` is the index and for `--tx-out` we use: `TxOut+Lovelace` where `TxOut` is the hex encoded address followed by the amount in `Lovelace`.
+We need the transaction hash and index of the **UTXO** we want to spend:
 
 ```text
-cardano-cli shelley transaction build-raw \
---tx-in 4e3a6e7fdcb0d0efa17bf79c13aed2b4cb9baf37fb1aa2e39553d5bd720c5c99#4 \
+cardano-cli query utxo \
+--allegra-era \
+--address $(cat payment.addr) \
+--testnet-magic 1097911063
+
+>                            TxHash                                 TxIx        Lovelace
+> ----------------------------------------------------------------------------------------
+> 4e3a6e7fdcb0d0efa17bf79c13aed2b4cb9baf37fb1aa2e39553d5bd720c5c99     1       1000000000
+```
+
+Note that for `--tx-in` we use the following syntax: `TxId#TxIx` where `TxId` is the transaction hash and `TxIx` is the index (you found these values in the above step) they will be added like this ```4e3a6e7fdcb0d0efa17bf79c13aed2b4cb9baf37fb1aa2e39553d5bd720c5c99#1```.
+
+For `--tx-out` we use: `TxOut+Lovelace` where `TxOut` is the hex encoded address followed by the amount in `Lovelace`. --tx-out $(cat payment.addr)+0, --ttl, --fees, are all 0 for now. We will revisit these in a later step after we calculate fees and ttl.
+
+```text
+cardano-cli transaction build-raw \
+--tx-in 4e3a6e7fdcb0d0efa17bf79c13aed2b4cb9baf37fb1aa2e39553d5bd720c5c99#1 \ 
 --tx-out $(cat payment2.addr)+100000000 \
 --tx-out $(cat payment.addr)+0 \
 --ttl 0 \
@@ -81,7 +97,7 @@ cardano-cli shelley transaction build-raw \
 The transaction needs one \(1\) input: a valid UTXO from `payment.addr`, and two \(2\) outputs: The receiving address **payment2.addr** and an address to send the change back, in this case we use **payment.addr.** You also need to include the **Draft transaction file. Witnesses** are \_\*\*\_number of signing keys used to sign the transaction.
 
 ```text
-   cardano-cli shelley transaction calculate-min-fee \
+   cardano-cli transaction calculate-min-fee \
    --tx-body-file tx.raw \
    --tx-in-count 1 \
    --tx-out-count 2 \
@@ -91,46 +107,35 @@ The transaction needs one \(1\) input: a valid UTXO from `payment.addr`, and two
    --protocol-params-file protocol.json
 
 
-   > 167965
+   > 174433 Lovelace
 ```
 
 \(`--testnet-magic 1097911063` identifies the Shelley Testnet. Other testnets will use other numbers, and mainnet uses `--mainnet` instead.\)
 
-So we need to pay **167965 lovelace** fee to create this transaction.
+So we need to pay **174433 lovelace** fee to create this transaction.
 
 Assuming we want to send 100 ada to **payment2.addr** spending a **UTXO** containing 1,000,000 ada \(1,000,000,000,000 lovelace\), now we need to calculate how much is the **change** to send back to **payment.addr**
 
 ```text
-expr 1000000000000 - 100000000 - 167965
+expr 1000000000 - 100000000 - 174433
 
-> 999899832035
-```
-
-We need the transaction hash and index of the **UTXO** we want to spend:
-
-```text
-cardano-cli shelley query utxo \
---address $(cat payment.addr) \
---testnet-magic 1097911063
-
->                            TxHash                                 TxIx        Lovelace
-> ----------------------------------------------------------------------------------------
-> 4e3a6e7fdcb0d0efa17bf79c13aed2b4cb9baf37fb1aa2e39553d5bd720c5c99     4     1000000000000
+> 899825567
 ```
 
 ## Build the transaction
 
-We write the transaction in a file, we will name it `tx.raw`.
+Now we revisit the `tx.raw` file from the ["Draft the transaction"](#draft-the-transaction) section above.
 
-Note that for `--tx-in` we use the following syntax: `TxId#TxIx` where `TxId` is the transaction hash and `TxIx` is the index and for `--tx-out` we use: `TxOut+Lovelace` where `TxOut` is the hex encoded address followed by the amount in `Lovelace`.
+Note that all the arguments will be the same for the first three lines, but we will now add the values we discovered above for the next 3 lines.
+
 
 ```text
-cardano-cli shelley transaction build-raw \
+cardano-cli transaction build-raw \
 --tx-in 4e3a6e7fdcb0d0efa17bf79c13aed2b4cb9baf37fb1aa2e39553d5bd720c5c99#4 \
 --tx-out $(cat payment2.addr)+100000000 \
---tx-out $(cat payment.addr)+999899832035 \
---ttl 796546 \
---fee 167965 \
+--tx-out $(cat payment.addr)+899825567 \
+--ttl 370415 \
+--fee 174433 \
 --out-file tx.raw
 ```
 
@@ -139,7 +144,7 @@ cardano-cli shelley transaction build-raw \
 Sign the transaction with the signing key **payment.skey** and save the signed transaction in **tx.signed**
 
 ```text
-cardano-cli shelley transaction sign \
+cardano-cli transaction sign \
 --tx-body-file tx.raw \
 --signing-key-file payment.skey \
 --testnet-magic 1097911063 \
@@ -157,7 +162,7 @@ export CARDANO_NODE_SOCKET_PATH=~/cardano-node/relay/db/node.socket
 and submit the transaction:
 
 ```text
-cardano-cli shelley transaction submit \
+cardano-cli transaction submit \
         --tx-file tx.signed \
         --testnet-magic 1097911063
 ```
@@ -167,15 +172,17 @@ cardano-cli shelley transaction submit \
 We must give it some time to get incorporated into the blockchain, but eventually, we will see the effect:
 
 ```text
-    cardano-cli shelley query utxo \
+    cardano-cli query utxo \
+        --allegra-era \
         --address $(cat payment.addr) \
         --testnet-magic 1097911063
 
     >                            TxHash                                 TxIx        Lovelace
     > ----------------------------------------------------------------------------------------
-    > b64ae44e1195b04663ab863b62337e626c65b0c9855a9fbb9ef4458f81a6f5ee     1      999899832035
+    > b64ae44e1195b04663ab863b62337e626c65b0c9855a9fbb9ef4458f81a6f5ee     1        899825567
 
     cardano-cli shelley query utxo \
+        --allegra-era \
         --address $(cat payment2.addr) \
         --testnet-magic 1097911063
 
