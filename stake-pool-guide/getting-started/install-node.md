@@ -159,7 +159,7 @@ git checkout tags/1.19.1
 
 ## Build and install the node
 
-Now we build and install the node with `cabal`, which will take a couple of minutes the first time you do a build. Later builds will be much faster, because everything that does not change will be cached.
+Now we build and install the node with `cabal`, which will take a few minutes the first time you do a build. Later builds will be much faster, because everything that does not change will be cached.
 
 ```text
 cabal build all
