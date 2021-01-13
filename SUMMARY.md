@@ -29,7 +29,7 @@
   * [Simple transaction](lessons/lesson-2/transaction.md)
 * [LESSON 3](lessons/lesson-3/README.md)
   * [Stake keys and address](lessons/lesson-3/stake-keys-and-address.md)
-  * [Regsiter stake key to the blockchain](lessons/lesson-3/register-stake-key.md)
+  * [Register stake key](lessons/lesson-3/register-stake-key.md)
 * [LESSON 4](lessons/lesson-5/README.md)
   * [Key Evolving Signature](lessons/lesson-5/kes.md)
   * [Understanding pledge](lessons/lesson-5/understanding-pledge.md)
