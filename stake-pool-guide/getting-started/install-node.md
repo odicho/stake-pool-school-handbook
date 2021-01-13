@@ -179,9 +179,9 @@ cp -p dist-newstyle/build/x86_64-linux/ghc-8.10.2/cardano-cli-1.24.2/x/cardano-c
 cardano-cli --version
 ```
 
-## Update your node and cli to newer versions 
-
+{% hint style="info" %}
 If you need to update to a newer version follow the steps below:
+{% endhint %}
 ```text
 cd cardano-node
 git fetch --all --tags
@@ -206,9 +206,9 @@ _Note:_ It might be necessary to delete the `db`-folder \(the database-folder\) 
 
 
 
-
-## QUESTIONS AND FEEDBACK
+{% hint style="info" %}
+QUESTIONS AND FEEDBACK
   
 If you have any questions and suggestions while taking the lessons please feel free to ask in the [forum](https://forum.cardano.org/c/staking-delegation/setup-a-stake-pool/158) and we will respond as soon as possible.
-
+{% endhint %}
 
