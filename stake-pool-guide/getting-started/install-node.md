@@ -1,6 +1,6 @@
 # Installing Cardano-node
 
-## Latest version 1.19.1
+## Latest version 1.24.2
 
 ## Prerequisites
 
@@ -104,10 +104,10 @@ cabal --version
 ## Download and install GHC:
 
 ```text
-wget https://downloads.haskell.org/~ghc/8.6.5/ghc-8.6.5-x86_64-deb9-linux.tar.xz
-tar -xf ghc-8.6.5-x86_64-deb9-linux.tar.xz
-rm ghc-8.6.5-x86_64-deb9-linux.tar.xz
-cd ghc-8.6.5
+wget https://downloads.haskell.org/~ghc/8.10.2/ghc-8.10.2-x86_64-deb9-linux.tar.xz
+tar -xf ghc-8.10.2-x86_64-deb9-linux.tar.xz
+rm ghc-8.10.2-x86_64-deb9-linux.tar.xz
+cd ghc-8.10.2
 ./configure
 sudo make install
 cd ..
@@ -149,12 +149,12 @@ We change our working directory to the downloaded source code folder:
 cd cardano-node
 ```
 
-For reproducible builds, we should check out a specific release, a specific "tag". For the Shelley Testnet, we will use tag `1.19.1`, which we can check out as follows:
+For reproducible builds, we should check out a specific release, a specific "tag". For the Shelley Testnet, we will use tag `1.24.2`, which we can check out as follows:
 
 ```text
 git fetch --all --tags
 git tag
-git checkout tags/1.19.1
+git checkout tags/1.24.2
 ```
 
 ## Build and install the node
@@ -168,37 +168,47 @@ cabal build all
 Now we can copy the executables files to the .local/bin directory
 
 ```text
-cp -p dist-newstyle/build/x86_64-linux/ghc-8.6.5/cardano-node-1.19.1/x/cardano-node/build/cardano-node/cardano-node ~/.local/bin/
+cp -p dist-newstyle/build/x86_64-linux/ghc-8.10.2/cardano-node-1.24.2/x/cardano-node/build/cardano-node/cardano-node ~/.local/bin/
 ```
 
 ```text
-cp -p dist-newstyle/build/x86_64-linux/ghc-8.6.5/cardano-cli-1.19.1/x/cardano-cli/build/cardano-cli/cardano-cli ~/.local/bin/
+cp -p dist-newstyle/build/x86_64-linux/ghc-8.10.2/cardano-cli-1.24.2/x/cardano-cli/build/cardano-cli/cardano-cli ~/.local/bin/
 ```
 
 ```text
 cardano-cli --version
 ```
 
-{% hint style="info" %}
-f you need to update to a newer version follow the steps below. This will be much faster than the initial build:
-{% endhint %}
+## Update your node and cli to newer versions 
 
+If you need to update to a newer version follow the steps below:
 ```text
 cd cardano-node
 git fetch --all --tags
 git tag
 git checkout tags/<the-tag-you-want>
-cabal install cardano-node cardano-cli
+cabal build cardano-node cardano-cli
+```
+_Note:_ This is a good time to backup your current binaries (in case you have to revert to an earlier version). Something like this will work:
+```text
+cd ~/.local/bin
+mv cardano-cli cardano-cli-backup
+mv cardano-node cardano-node-backup
+```
+Now copy your newly built binaries to the appropriate directory, with:
+```text
+cp -p dist-newstyle/build/x86_64-linux/ghc-8.10.2/cardano-node-<NEW VERSION>/x/cardano-node/build/cardano-node/cardano-node ~/.local/bin/
+
+cp -p dist-newstyle/build/x86_64-linux/ghc-8.10.2/cardano-cli-<NEW VERSION>/x/cardano-cli/build/cardano-cli/cardano-cli ~/.local/bin/
 ```
 
 _Note:_ It might be necessary to delete the `db`-folder \(the database-folder\) before running an updated version of the node.
 
 
 
-{% hint style="info" %}
-QUESTIONS AND FEEDBACK
 
+## QUESTIONS AND FEEDBACK
   
-If you have any questions and suggestions while taking the lessons please feel free to ask in the [forum](https://forum.cardano.org/c/english/operators-talk/119) and we will respond as soon as possible.
-{% endhint %}
+If you have any questions and suggestions while taking the lessons please feel free to ask in the [forum](https://forum.cardano.org/c/staking-delegation/setup-a-stake-pool/158) and we will respond as soon as possible.
+
 
