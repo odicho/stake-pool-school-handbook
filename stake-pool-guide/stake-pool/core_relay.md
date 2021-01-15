@@ -13,15 +13,16 @@ Get the configuration files for your core node if you don't have them already, f
 mkdir pool
 cd pool
 
-wget https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/shelley_testnet-config.json
-wget https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/shelley_testnet-shelley-genesis.json
-wget https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/shelley_testnet-topology.json
+wget https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/testnet-config.json
+wget https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/testnet-shelley-genesis.json
+wget https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/testnet-topology.json
+
 ```
 
 Make the core node "talk" only to **YOUR** relay node.
 
 ```text
-nano shelley_testnet-topology.json
+nano testnet-topology.json
 
   {
     "Producers": [
@@ -39,7 +40,7 @@ nano shelley_testnet-topology.json
 Make your **relay node** `talk` to your **block-producing** node and **other relays** in the network by editing the `shelley_testnet-topology.json` file:
 
 ```text
-nano shelley_testnet-topology.json
+nano testnet-topology.json
 
 {
   "Producers": [
