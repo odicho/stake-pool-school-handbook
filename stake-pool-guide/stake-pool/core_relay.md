@@ -27,7 +27,7 @@ nano testnet-topology.json
   {
     "Producers": [
       {
-        "addr": "<RELAY IP ADDRESS",
+        "addr": "<YOUR RELAY NODE IP ADDRESS>",
         "port": <PORT>,
         "valency": 1
       }
@@ -37,7 +37,7 @@ nano testnet-topology.json
 
 ## Configure the relay node:
 
-Make your **relay node** `talk` to your **block-producing** node and **other relays** in the network by editing the `shelley_testnet-topology.json` file:
+Make your **relay node** `talk` to your **block-producing** node and **other relays** in the network by editing the `testnet-topology.json` file:
 
 ```text
 nano testnet-topology.json
@@ -45,17 +45,17 @@ nano testnet-topology.json
 {
   "Producers": [
     {
-      "addr": "<BLOCK-PRODUCING IP ADDRESS",
-      "port": PORT,
-      "valency": 1
-    },
-    {
-      "addr": "<IP ADDRESS>",
+      "addr": "<YOUR BLOCK-PRODUCING NODE IP ADDRESS>",
       "port": <PORT>,
       "valency": 1
     },
     {
-      "addr": "<IP ADDRESS",
+      "addr": "<OTHER RELAY NODE IP ADDRESS>",
+      "port": <PORT>,
+      "valency": 1
+    },
+    {
+      "addr": "<OTHER RELAY NODE IP ADDRESS>",
       "port": <PORT>,
       "valency": 1
     }
