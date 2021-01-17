@@ -162,6 +162,8 @@ git checkout tags/1.24.2
 Now we build and install the node with `cabal`, which will take a few minutes the first time you do a build. Later builds will be much faster, because everything that does not change will be cached.
 
 ```text
+cabal clean
+cabal update
 cabal build all
 ```
 
