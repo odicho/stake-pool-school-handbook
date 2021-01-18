@@ -1,4 +1,4 @@
-# Understanding your configuration files and how to use them:
+# Understanding your configuration files and how to use them
 
 ## The topology.json file
 
@@ -16,9 +16,9 @@ Tells your node to which nodes in the network it should talk to. A minimal versi
 }
 ```
 
-This means that your node will contact node at ip `x.x.x.x` on `port 3001`.
+This means that your node will contact the node at ip `x.x.x.x` on `port 3001`.
 
-`valency` tells the node how many connections your node should have. It only has an effect for dns addresses. If a dns address is given, valency governs to how many resolved ip addresses should we maintain active \(hot\) connection; for ip addresses, valency is used as a boolean value, where `0` means to ignore the address.
+`valency` tells the node how many connections your node should have. It only has an effect for dns addresses. If a dns address is given, valency governs how many resolved ip addresses we should maintain as active \(hot\) connections; for ip addresses, valency is used as a boolean value, where `0` means to ignore the address.
 
 Your **block-producing** node must **ONLY** talk to your **relay nodes**, and the relay node should talk to other relay nodes in the network. Go to our [**forum**](https://forum.cardano.org/c/english/operators-talk/119) channel to find out IP addresses and ports of peers.
 
@@ -139,22 +139,22 @@ Here is a brief description of each parameter. You can learn more in the [spec](
 | maxKESEvolutions | The maximum number of time a KES key can be evolved before a pool operator must create a new operational certificate |
 | securityParam | Security parameter k |
 
-## The config.json file
+## The testnet-config.json file
 
-The default `config.json` file that we downloaded is shown below.
+The default `testnet-config.json` file that we downloaded is shown below.
 
 This file has **4** sections that allow you to have full control on what your node does and how the informtion is presented.
 
-**NOTE Due to how the config.json file is generated, fields on the real file are shown in a different \(less coherent\) order. Here we present them in a more structured way**
+**NOTE Due to how the testnet-config.json file is generated, fields on the real file are shown in a different \(less coherent\) order. Here we present them in a more structured way**
 
 ### 1 Basic Node Configuration.
 
-The first section relates to the basic node configuration parameters. Make sure you have to `TPraos`as the protocol, the correct path to the `shelley_testnet-genesis.json` file, `RequiresMagic`for its use in a testnet. Note that in this example we are using the SimpleView. This will send the output to `stdout`. The other option is `LiveView` which uses a terminal multiplexer to generate a fancy view. We will cover this topic later.
+The first section relates to the basic node configuration parameters. Make sure you have to `TPraos`as the protocol, the correct path to the `testnet-shelley-genesis.json` file, `RequiresMagic`for its use in a testnet. Note that in this example we are using the SimpleView. This will send the output to `stdout`. The other option is `LiveView` which uses a terminal multiplexer to generate a fancy view. We will cover this topic later.
 
 ```text
 {
   "Protocol": "TPraos",
-  "GenesisFile": "shelley_testnet-genesis.json",
+  "GenesisFile": "testnet-shelley-genesis.json",
   "RequiresNetworkMagic": "RequiresMagic",
 ```
 
@@ -172,7 +172,7 @@ This protocol version number gets used by block producing nodes as part of the s
 
 ### 3 Tracing
 
-`Tracers` tell your node what information you are interested in when logging: like switches that you can turn ON or OFF according the type and quantity of information that you are interesetd in. This provides fairly coarse grained control, but it is relatively efficient at filtering out unwanted trace output.
+`Tracers` tell your node what information you are interested in when logging, such as switches that you can turn ON or OFF according the type and quantity of information that you are interesetd in. This provides fairly coarse grained control, but it is relatively efficient at filtering out unwanted trace output.
 
 The node can run in either the `SimpleView` or `LiveView`. The `SimpleView` uses standard output, optionally with log output. The `LiveView` is a text console with a live view of various node metrics.
 
@@ -258,7 +258,7 @@ The node can run in either the `SimpleView` or `LiveView`. The `SimpleView` uses
 
 ### 4 Fine grained logging control
 
-It is also possible to have more fine grained control over filtering of trace output, and to match and route trace output to particular backends. This is less efficient than the coarse trace filters above but provides much more precise control. `options`:
+It is also possible to have more fine-grained control over the filtering of trace output, and to match and route trace output to particular backends. This is less efficient than the coarse trace filters above but provides much more precise control. `options`:
 
 `mapBackends` This routes metrics matching specific names to particular backends. This overrides the defaultBackends listed above. Note that it is an **override** and not an extension so anything matched here will not go to the default backend, only to the explicitly listed backends.
 
