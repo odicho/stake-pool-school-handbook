@@ -6,7 +6,7 @@ The faucet is a web-based service that provides test ada \(also known as 'tADA',
 
 Click below to get redirected to the faucet.
 
-{% embed url="https://testnets.cardano.org/en/shelley/tools/faucet/" caption="" %}
+{% embed url="https://developers.cardano.org/en/testnets/cardano/tools/faucet/" caption="" %}
 
 
 
