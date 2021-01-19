@@ -149,11 +149,11 @@ This file has **4** sections that allow you to have full control on what your no
 
 ### 1 Basic Node Configuration.
 
-The first section relates to the basic node configuration parameters. Make sure you have to `TPraos`as the protocol, the correct path to the `testnet-shelley-genesis.json` file, `RequiresMagic`for its use in a testnet. Note that in this example we are using the SimpleView. This will send the output to `stdout`. The other option is `LiveView` which uses a terminal multiplexer to generate a fancy view. We will cover this topic later.
+The first section relates to the basic node configuration parameters. Make sure you have to `Cardano`as the protocol, the correct path to the `testnet-shelley-genesis.json` file, `RequiresMagic`for its use in a testnet. Note that in this example we are using the SimpleView. This will send the output to `stdout`. The other option is `LiveView` which uses a terminal multiplexer to generate a fancy view. We will cover this topic later.
 
 ```text
 {
-  "Protocol": "TPraos",
+  "Protocol": "Cardano",
   "GenesisFile": "testnet-shelley-genesis.json",
   "RequiresNetworkMagic": "RequiresMagic",
 ```
