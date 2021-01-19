@@ -123,10 +123,28 @@ cd ghc-8.10.2
 sudo make install
 cd ..
 ```
+Alternatively, the ghcup tool can be used to install and set several versions of GHC: 
+
+```text
+curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+ghcup upgrade
+ghcup install <VERSION>
+ghcup set <VERSION>
+```
+<VERSION> here could be for example 8.10.2
+
+You can check that your default GHC version has been properly set:
+
+```text
+ghc --version
+```
 
 ## Install Libsodium
 
 ```text
+export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+
 git clone https://github.com/input-output-hk/libsodium
 cd libsodium
 git checkout 66f017f1
@@ -135,8 +153,6 @@ git checkout 66f017f1
 make
 sudo make install
 
-export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
-export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 ```
 
 ## Download the source code for cardano-node
