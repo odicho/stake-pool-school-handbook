@@ -103,10 +103,21 @@ cabal --version
 
 ## Download and install GHC:
 
+For Debian/Ubuntu systems:
 ```text
 wget https://downloads.haskell.org/~ghc/8.10.2/ghc-8.10.2-x86_64-deb9-linux.tar.xz
 tar -xf ghc-8.10.2-x86_64-deb9-linux.tar.xz
 rm ghc-8.10.2-x86_64-deb9-linux.tar.xz
+cd ghc-8.10.2
+./configure
+sudo make install
+cd ..
+```
+For CentOS/RHEL systems:
+```text
+wget https://downloads.haskell.org/~ghc/8.10.2/ghc-8.10.2-x86_64-centos7-linux.tar.xz
+tar -xf ghc-8.10.2-x86_64-centos7-linux.tar.xz
+rm ghc-8.10.2-x86_64-centos7-linux.tar.xz
 cd ghc-8.10.2
 ./configure
 sudo make install
