@@ -30,7 +30,7 @@ In Ouroboros, there is no race between stakeholders to produce a block. Instead,
 
 So it is not hashing power what gives you the opportunity to produce a new block \(and get rewarded for it\), it is your stake what increases your chances to be elected.
 
-Since there is no race to mine a block, there is no waste of energy or computational resources. In that sense, Ouroboros is a more efficient and cheaper protocol to run that Bitcoin’s proof-of-work, while keeping all the security guarantees.
+Since there is no race to mine a block, there is no waste of energy or computational resources. In that sense, Ouroboros is a more efficient and cheaper protocol to run than Bitcoin’s proof-of-work, while keeping all the security guarantees.
 
 ### What if you are not online? \(Stake pools\) <a id="7855"></a>
 
