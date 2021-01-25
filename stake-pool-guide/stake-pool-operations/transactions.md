@@ -131,7 +131,7 @@ Note that all the arguments will be the same for the first three lines, but we w
 
 ```text
 cardano-cli transaction build-raw \
---tx-in 4e3a6e7fdcb0d0efa17bf79c13aed2b4cb9baf37fb1aa2e39553d5bd720c5c99#4 \
+--tx-in 4e3a6e7fdcb0d0efa17bf79c13aed2b4cb9baf37fb1aa2e39553d5bd720c5c99#1 \
 --tx-out $(cat payment2.addr)+100000000 \
 --tx-out $(cat payment.addr)+899825567 \
 --ttl 370415 \
@@ -181,7 +181,7 @@ We must give it some time to get incorporated into the blockchain, but eventuall
     > ----------------------------------------------------------------------------------------
     > b64ae44e1195b04663ab863b62337e626c65b0c9855a9fbb9ef4458f81a6f5ee     1        899825567
 
-    cardano-cli shelley query utxo \
+    cardano-cli query utxo \
         --allegra-era \
         --address $(cat payment2.addr) \
         --testnet-magic 1097911063
