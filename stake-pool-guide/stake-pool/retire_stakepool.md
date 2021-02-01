@@ -14,7 +14,7 @@ This epoch must be _after_ the current epoch and _not later than_ `eMax` epochs 
 So we first need to figure out the current epoch. The number of _slots per epoch_ is recorded in the genesis file, and we can get it with
 
 ```text
-cat shelley_testnet-genesis.json | grep epoch
+cat testnet-shelley-genesis.json | grep epoch
 > "epochLength": 21600,
 ```
 
@@ -22,7 +22,7 @@ So one epoch lasts for 21600 slots. We get the current slot by querying the tip:
 
 ```text
 export CARDANO_NODE_SOCKET_PATH=relay-db/node-socket
-cardano-cli shelley query tip --testnet-magic 1097911063
+cardano-cli query tip --testnet-magic 1097911063
 
 > Tip (SlotNo {unSlotNo = 856232}) ...
 ```
@@ -30,7 +30,7 @@ cardano-cli shelley query tip --testnet-magic 1097911063
 This gives us
 
 ```text
-expr 856232 / 21600
+expr 856232 / 432000
 > 39
 ```
 
@@ -39,7 +39,7 @@ So we are currently in epoch 39.
 We can look up `eMax` by querying the current protocol parameters:
 
 ```text
-cardano-cli shelley query protocol-parameters \
+cardano-cli query protocol-parameters \
 --testnet-magic 1097911063 \
 --out-file protocol.json
 
@@ -58,7 +58,7 @@ So for example, we can decide to retire in epoch 41.
 Create the deregistration certificate and save it as `pool.retirement`:
 
 ```text
-cardano-cli shelley stake-pool deregistration-certificate \
+cardano-cli stake-pool deregistration-certificate \
 --cold-verification-key-file cold.vkey \
 --epoch 41 \
 --out-file pool.dereg
@@ -67,7 +67,7 @@ cardano-cli shelley stake-pool deregistration-certificate \
 ## Draft the transaction
 
 ```text
-cardano-cli shelley transaction build-raw \
+cardano-cli transaction build-raw \
 --tx-in <UTXO>#<TxIx> \
 --tx-out $(cat payment.addr)+0 \
 --ttl 0 \
@@ -79,7 +79,7 @@ cardano-cli shelley transaction build-raw \
 ## Calculate the fees:
 
 ```text
-cardano-cli shelley transaction calculate-min-fee \
+cardano-cli transaction calculate-min-fee \
 --tx-body-file tx.draft \
 --tx-in-count 1 \
 --tx-out-count 1 \
@@ -96,7 +96,7 @@ For example:
 We query our address for a suitable UTxO to use as input:
 
 ```text
-cardano-cli shelley query utxo \
+cardano-cli query utxo \
 --address $(cat payment.addr) \
 --testnet-magic 1097911063
 
@@ -119,7 +119,7 @@ expr 999999267766 - 171309
 Build the raw transaction:
 
 ```text
-cardano-cli shelley transaction build-raw \
+cardano-cli transaction build-raw \
     --tx-in 9db6cf...#0 \
     --tx-out $(cat payment.addr)+999999096457 \
     --ttl 860000 \
@@ -131,7 +131,7 @@ cardano-cli shelley transaction build-raw \
 **Sign it with both the payment signing key and the cold signing key \(the first signature is necessary because we are spending funds from `paymant.addr`, the second because the certificate needs to be signed by the pool owner\):**
 
 ```text
-cardano-cli shelley transaction sign \
+cardano-cli transaction sign \
     --tx-body-file tx.raw \
     --signing-key-file payment.skey \
     --signing-key-file cold.skey \
@@ -142,7 +142,7 @@ cardano-cli shelley transaction sign \
 And submit to the blockchain:
 
 ```text
-cardano-cli shelley transaction submit \
+cardano-cli transaction submit \
     --tx-file tx.signed \
     --testnet-magic 1097911063
 ```
