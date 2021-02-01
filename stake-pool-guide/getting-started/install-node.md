@@ -216,6 +216,7 @@ cd cardano-node
 git fetch --all --tags
 git tag
 git checkout tags/<the-tag-you-want>
+cabal update
 cabal build cardano-node cardano-cli
 ```
 _Note:_ This is a good time to backup your current binaries (in case you have to revert to an earlier version). Something like this will work:
