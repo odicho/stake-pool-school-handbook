@@ -40,7 +40,7 @@ cardano-cli transaction build-raw \
 This transaction has only 1 input \(the UTXO used to pay the transaction fee\) and 1 output \(our `paymentwithstake.addr` to which we are sending the change\). This transaction has to be signed by both the payment signing key `payment.skey` and the stake signing key `stake.skey`; and includes the certificate `stake.cert`:
 
 ```text
-cardano-cli shelley transaction calculate-min-fee \
+cardano-cli transaction calculate-min-fee \
 --tx-body-file tx.raw \
 --tx-in-count 1 \
 --tx-out-count 1 \
