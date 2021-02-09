@@ -43,7 +43,7 @@ cd pool-keys
 ### Generate **Cold** Keys and a **Cold\_counter**:
 
 ```text
-cardano-cli shelley node key-gen \
+cardano-cli node key-gen \
 --cold-verification-key-file cold.vkey \
 --cold-signing-key-file cold.skey \
 --operational-certificate-issue-counter-file cold.counter
@@ -52,7 +52,7 @@ cardano-cli shelley node key-gen \
 ### Generate VRF Key pair
 
 ```text
-cardano-cli shelley node key-gen-VRF \
+cardano-cli node key-gen-VRF \
 --verification-key-file vrf.vkey \
 --signing-key-file vrf.skey
 ```
@@ -60,7 +60,7 @@ cardano-cli shelley node key-gen-VRF \
 ### Generate the KES Key pair
 
 ```text
-cardano-cli shelley node key-gen-KES \
+cardano-cli node key-gen-KES \
 --verification-key-file kes.vkey \
 --signing-key-file kes.skey
 ```
@@ -70,7 +70,7 @@ cardano-cli shelley node key-gen-KES \
 We need to know the slots per KES period, we get it from the genesis file:
 
 ```text
-cat shelley_testnet-genesis.json | grep KESPeriod
+cat testnet-shelley-genesis.json | grep KESPeriod
 > "slotsPerKESPeriod": 3600,
 ```
 
@@ -81,7 +81,7 @@ Then we need the current tip of the blockchain:
 We can use your relay node to query the tip:
 
 ```text
-cardano-cli shelley query tip --testnet-magic 1097911063
+cardano-cli query tip --testnet-magic 1097911063
 
 {
     "blockNo": 27470,
@@ -104,7 +104,7 @@ expr 656260 / 3600
 To generate the certificate:
 
 ```text
-cardano-cli shelley node issue-op-cert \
+cardano-cli node issue-op-cert \
 --kes-verification-key-file kes.vkey \
 --cold-signing-key-file cold.skey \
 --operational-certificate-issue-counter cold.counter \
