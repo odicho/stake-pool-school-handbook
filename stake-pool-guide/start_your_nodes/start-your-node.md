@@ -1,6 +1,6 @@
 # Start your node
 
-Starting the the node uses the command `cardano-node run` and a set of options.
+Starting the node uses the command `cardano-node run` and a set of options.
 
 You can get the complete list of available options with `cardano-node run`
 
