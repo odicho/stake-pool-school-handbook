@@ -123,7 +123,7 @@ cd ghc-8.10.2
 sudo make install
 cd ..
 ```
-Alternatively, the ghcup tool can be used to install and set several versions of GHC: 
+Alternatively, the ghcup tool can be used to install and set several versions of GHC:
 
 ```text
 curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
@@ -176,12 +176,12 @@ We change our working directory to the downloaded source code folder:
 cd cardano-node
 ```
 
-For reproducible builds, we should check out a specific release, a specific "tag". For the Shelley Testnet, we will use tag `1.24.2`, which we can check out as follows:
+For reproducible builds, we should check out a specific release, a specific "tag". For the Mary Testnet, we will use tag `1.25.1`, which we can check out as follows:
 
 ```text
 git fetch --all --tags
 git tag
-git checkout tags/1.24.2
+git checkout tags/1.25.1
 ```
 
 ## Build and install the node
@@ -238,7 +238,6 @@ _Note:_ It might be necessary to delete the `db`-folder \(the database-folder\) 
 
 {% hint style="info" %}
 QUESTIONS AND FEEDBACK
-  
+
 If you have any questions and suggestions while taking the lessons please feel free to ask in the [forum](https://forum.cardano.org/c/staking-delegation/setup-a-stake-pool/158) and we will respond as soon as possible.
 {% endhint %}
-
