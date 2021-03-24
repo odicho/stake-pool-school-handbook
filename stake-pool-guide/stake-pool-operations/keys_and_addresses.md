@@ -65,7 +65,7 @@ make sure that your node is running. Then use `cardano-cli shelley query utxo` t
 
 ```text
 cardano-cli query utxo \
---allegra-era \
+--mary-era \
 --address $(cat payment.addr) \
 --testnet-magic 1097911063
 ```
@@ -84,4 +84,3 @@ QUESTIONS AND FEEDBACK
 
 If you have any questions and suggestions while taking the lessons please feel free to ask in the [forum](https://forum.cardano.org/c/english/operators-talk/119) and we will respond as soon as possible.
 {% endhint %}
-
