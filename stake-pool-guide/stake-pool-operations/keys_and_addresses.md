@@ -39,7 +39,7 @@ The first line describes the file type and should not be changed. The second lin
 
 ## Payment address
 
-We then use `payment.vkey` and `stake.vkey` to create our `payment address`:
+We then use `payment.vkey` to create our `payment address`:
 
 ```text
  cardano-cli address build \
