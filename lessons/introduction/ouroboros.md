@@ -62,7 +62,7 @@ Making the slot leader selection fair and secure **\(staking procedure\)** requi
 
 Ouroboros protocol \(specifically Ouroboros Praos and Ouroboros Genesis\) incorporates a Global Random Oracle feature that produces new and fresh randomness at every epoch.
 
-This is achieved by the implementation of a Verifiable Random Function. When evaluated with the key of a stakeholder, It returns a random value which is stored in every new block produced. The hashing of all values from the previous epoch becomes the random seed for the staking procedure. The blockchain itself becomes its source of new randomness.
+This is achieved by the implementation of a Verifiable Random Function. When evaluated with the key of a stakeholder, it returns a random value which is stored in every new block produced. The hashing of all values from the previous epoch becomes the random seed for the staking procedure. The blockchain itself becomes its source of new randomness.
 
 This is why the protocol is named Ouroboros, the snake that eats its own tail.
 
